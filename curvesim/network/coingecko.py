@@ -26,6 +26,15 @@ PLATFORMS = {
     "matic": "polygon-pos",
 }
 
+def get_coingecko_api_key():
+    """
+    Get the coingecko API key from the environment.
+    Default to key provided by `curvesim` (not recommended).
+    """
+    default_key = ""
+    key = get_env_var("COINGECKO_API_KEY", default=default_key)
+    return key
+
 
 async def _get_prices(coin_id, vs_currency, start, end):
     url = URL + f"coins/{coin_id}/market_chart/range"
@@ -63,7 +72,7 @@ async def _pool_prices(coins, vs_currency, days, end=None):
         t_end = datetime.now(timezone.utc) - timedelta(days=1)
         t_end = t_end.replace(hour=23, minute=30, second=0, microsecond=0)
         t_start = t_end - timedelta(days=days + 1)
-        t_samples = pd.date_range(start=t_start, end=t_end, freq="60T", tz=timezone.utc)
+        t_samples = pd.date_range(start=t_start, end=t_end, freq="60min", tz=timezone.utc)
         end = t_end.timestamp()
 
     # Fetch data

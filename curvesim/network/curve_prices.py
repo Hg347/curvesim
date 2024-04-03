@@ -14,7 +14,10 @@ from .utils import sync
 
 URL = "https://prices.curve.fi/v1/"
 
-CHAIN_ALIASES = {"mainnet": "ethereum"}
+CHAIN_ALIASES = {
+    "mainnet": "ethereum",
+    "matic": "polygon"
+}
 
 
 async def _get_pool_pair_volume(
@@ -118,10 +121,10 @@ def _chain_from_alias(chain):
     if chain in CHAIN_ALIASES:  # pylint: disable=consider-using-get
         chain = CHAIN_ALIASES[chain]
 
-    if chain != "ethereum":
-        raise CurvesimValueError(
-            "Curve Prices API currently only supports Ethereum chain."
-        )
+    # if chain != "ethereum":
+    #     raise CurvesimValueError(
+    #         "Curve Prices API currently only supports Ethereum chain."
+    #     )
 
     return chain
 
