@@ -23,7 +23,7 @@ PLATFORMS = {
     "xdai": "xdai",
     "fantom": "fantom",
     "avalanche": "avalanche",
-    "matic:": "polygon-pos",
+    "matic": "polygon-pos",
 }
 
 
