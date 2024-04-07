@@ -48,6 +48,11 @@ import curvesim
 res = curvesim.autosim("0x7f90122BF0700F9E7e1F688fe926940E8839F353", chain="arbitrum")
 ```
 
+To simulate on polygon chain
+```python
+import curvesim
+res = curvesim.autosim("0xfb6fe7802ba9290ef8b00ca16af4bc26eb663a28", chain="matic")
+```
 
 ## Simulation Results
 The simulation returns a SimResults object that can plot simulation metrics or return them as DataFrames.
