@@ -34,4 +34,4 @@ test/data/*-simple_results_*.pickle
 /.pdbrc
 
 # results
-/results
+results/

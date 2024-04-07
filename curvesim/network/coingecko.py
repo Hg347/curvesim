@@ -6,6 +6,8 @@ import pandas as pd
 
 from .http import HTTP
 from .utils import sync
+from curvesim.utils import get_env_var
+
 
 URL = "https://api.coingecko.com/api/v3/"
 
@@ -23,18 +25,26 @@ PLATFORMS = {
 def get_coingecko_api_key():
     """
     Get the coingecko API key from the environment.
-    Default to key provided by `curvesim` (not recommended).
+    By default, no key is set, i.e. coingecko's usage restrictions apply
     """
     default_key = ""
     key = get_env_var("COINGECKO_API_KEY", default=default_key)
     return key
 
 
+async def _http_get(url: str, request_params=None):
+    api_key = get_coingecko_api_key()
+    if api_key != "" : request_params.update({"apikey": api_key})
+
+    r = await HTTP.get(url, params=request_params)
+
+    return r
+
 async def _get_prices(coin_id, vs_currency, start, end):
     url = URL + f"coins/{coin_id}/market_chart/range"
     p = {"vs_currency": vs_currency, "from": start, "to": end}
 
-    r = await HTTP.get(url, params=p)
+    r = await _http_get(url, request_params=p)
 
     return r
 
@@ -56,7 +66,7 @@ async def coin_id_from_address(address, chain):
     chain = PLATFORMS[chain.lower()]
     url = URL + f"coins/{chain}/contract/{address}"
 
-    r = await HTTP.get(url)
+    r = await _http_get(url)
 
     coin_id = r["id"]
 

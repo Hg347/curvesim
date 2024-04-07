@@ -121,10 +121,10 @@ def _chain_from_alias(chain):
     if chain in CHAIN_ALIASES:  # pylint: disable=consider-using-get
         chain = CHAIN_ALIASES[chain]
 
-    # if chain != "ethereum":
-    #     raise CurvesimValueError(
-    #         "Curve Prices API currently only supports Ethereum chain."
-    #     )
+    if not (chain == "ethereum" or chain == "polygon"):
+        raise CurvesimValueError(
+            "Curve Prices API currently only supports Ethereum and Polygon chain."
+        )
 
     return chain
 
