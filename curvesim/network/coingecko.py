@@ -4,10 +4,9 @@ Network connector for Coingecko.
 # pylint: disable=redefined-outer-name
 import pandas as pd
 
-from .http import HTTP
-from .utils import sync
+from curvesim.network.http import HTTP
+from curvesim.network.utils import sync
 from curvesim.utils import get_env_var
-
 
 URL = "https://api.coingecko.com/api/v3/"
 
@@ -22,6 +21,7 @@ PLATFORMS = {
     "matic": "polygon-pos",
 }
 
+
 def get_coingecko_api_key():
     """
     Get the coingecko API key from the environment.
@@ -34,11 +34,13 @@ def get_coingecko_api_key():
 
 async def _http_get(url: str, request_params=None):
     api_key = get_coingecko_api_key()
-    if api_key != "" : request_params.update({"apikey": api_key})
+    if api_key != "":
+        request_params.update({"apikey": api_key})
 
     r = await HTTP.get(url, params=request_params)
 
     return r
+
 
 async def _get_prices(coin_id, vs_currency, start, end):
     url = URL + f"coins/{coin_id}/market_chart/range"
@@ -50,6 +52,11 @@ async def _get_prices(coin_id, vs_currency, start, end):
 
 
 async def get_prices(coin_id, vs_currency, start, end):
+    """
+    Retrieves prices from coingecko.com of given coin_id in given currency
+
+    Returns price information
+    """
     r = await _get_prices(coin_id, vs_currency, start, end)
 
     # Format data
@@ -62,6 +69,11 @@ async def get_prices(coin_id, vs_currency, start, end):
 
 
 async def coin_id_from_address(address, chain):
+    """
+    Retrieves coin id from coingecko by specified contract address.
+
+    Returns coin id
+    """
     address = address.lower()
     chain = PLATFORMS[chain.lower()]
     url = URL + f"coins/{chain}/contract/{address}"

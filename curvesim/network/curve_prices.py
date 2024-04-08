@@ -16,7 +16,8 @@ URL = "https://prices.curve.fi/v1/"
 
 CHAIN_ALIASES = {
     "mainnet": "ethereum",
-    "matic": "polygon"
+    "matic": "polygon",  # polygon-pos does not work!
+    "polygon": "polygon",
 }
 
 
@@ -121,7 +122,7 @@ def _chain_from_alias(chain):
     if chain in CHAIN_ALIASES:  # pylint: disable=consider-using-get
         chain = CHAIN_ALIASES[chain]
 
-    if not (chain == "ethereum" or chain == "polygon"):
+    if chain not in ("ethereum", "polygon"):
         raise CurvesimValueError(
             "Curve Prices API currently only supports Ethereum and Polygon chain."
         )

@@ -105,7 +105,7 @@ def _load_web3():
                 request_kwargs={"headers": {"Accept-Encoding": "gzip"}},
             ),
             modules={"eth": (AsyncEth,)},
-            middlewares=[],
+            middleware=[],
         )
     return _web3
 

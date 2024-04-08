@@ -1,0 +1,33 @@
+.. A new scriv changelog fragment.
+..
+.. Uncomment the header that is right (remove the leading dots).
+..
+.. Removed
+.. -------
+..
+.. - A bullet item for the Removed category.
+..
+Added
+-----
+- added PolygonSimulation.py to simulate the stMatic/WMatic pool on polygon (matic)
+- added API_KEY option for coingecko
+
+Changed
+-------
+- allowed polygon_pos next to ethereum in curve_prices.py
+- added a missing import in curvesim main
+- exluded subfolder .venv from flake
+- formatted the sources with black and fixed according to flake8
+- added and fixed dependencies in requirements.txt
+- updated Readme.md and added info about polygon chain
+..
+.. Deprecated
+.. ----------
+..
+.. - A bullet item for the Deprecated category.
+..
+Fixed
+-----
+- fixed typo in coingecko.py for platforms, removed colon after matic
+- fixed typo in web3.py, paramater middleware had an additional s
+

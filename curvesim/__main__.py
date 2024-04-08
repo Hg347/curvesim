@@ -8,7 +8,6 @@ import platform
 import time
 
 from .sim import autosim
-from .pool import get_pool
 from .version import __version__
 
 
